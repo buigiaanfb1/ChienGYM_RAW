@@ -15,6 +15,7 @@ getEle("btnThemNV").addEventListener("click", function () {
   getEle("msnv").disables = false;
   var msNV = getEle("msnv").value;
   var tenNV = getEle("name").value;
+  var begin = getEle("datepicker1").value;
   var date = getEle("datepicker").value;
   var chucvu = getEle("chucvu").value;
 
@@ -22,12 +23,10 @@ getEle("btnThemNV").addEventListener("click", function () {
   //prettier-ignore
   isValid &=
     validation.kiemTraRong(msNV, "tbMaNV", "(*) Vui long nhap ma") &&
-    validation.kiemTraDoDaiKyTu(msNV, "tbMaNV", "Do dai ki tu tu 4 --> 10", 4, 10) &&
     validation.kiemTraTrungMa(msNV, "tbMaNV", "(*) Duplicated", dsnv.arr);
   //prettier-ignore
   isValid &=
-    validation.kiemTraRong(tenNV, "tbTen", "(*) Vui long nhap ten") &&
-    validation.kiemTraDoDaiKyTu(tenNV, "tbTen", "Do dai ki tu tu 4 --> 10", 5, 20);
+    validation.kiemTraRong(tenNV, "tbTen", "(*) Vui long nhap ten");
   // validation.kiemTraKyTu(tenNV, "tbTen", "(*) Vui long ki tu");
 
   // isValid &=
@@ -57,7 +56,7 @@ getEle("btnThemNV").addEventListener("click", function () {
   //   }
 
   if (!isValid) return;
-  var nhanVien = new NhanVien(msNV, tenNV, date, chucvu);
+  var nhanVien = new NhanVien(msNV, tenNV, begin, date, chucvu);
 
   //Add
   dsnv.themNhanVien(nhanVien);
@@ -72,11 +71,12 @@ function taoBang(dsnv) {
             <tr>
                 <td>${item.manv}</td>
                 <td>${item.tennv}</td>
+                <td>${item.begin}</td>
                 <td>${item.date}</td>
                 <td>${item.chucvu}</td>
                 <td>
-                <button class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="suaNhanVien('${item.manv}')">Edit</button>
-                <button class="btn btn-danger" onclick="xoaNhanVien('${item.manv}')">Delete</button>
+                <button class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="suaNhanVien('${item.manv}')">Sửa</button>
+                <button class="btn btn-danger" onclick="xoaNhanVien('${item.manv}')">Xoá</button>
                 </td>
             </tr>
         `;
